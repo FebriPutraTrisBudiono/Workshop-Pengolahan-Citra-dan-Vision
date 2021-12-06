@@ -22,7 +22,7 @@ function varargout = enrol(varargin)
 
 % Edit the above text to modify the response to help enrol
 
-% Last Modified by GUIDE v2.5 25-Nov-2021 21:34:01
+% Last Modified by GUIDE v2.5 01-Dec-2021 21:05:53
 
 % Begin initialization code
 gui_Singleton = 1;
@@ -267,3 +267,19 @@ function b_f2_Callback(hObject, eventdata, handles)
 [filename2, pathname2] = ...
     uigetfile('*.tif','Pilih sidik jari kedua');
 set(handles.t_f2, 'string', [pathname2 filename2]);
+
+
+% --------------------------------------------------------------------
+function Untitled_1_Callback(hObject, eventdata, handles)
+% hObject    handle to Untitled_1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function Untitled_2_Callback(hObject, eventdata, handles)
+% hObject    handle to Untitled_2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+close()
+authenticate

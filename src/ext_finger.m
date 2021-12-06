@@ -570,7 +570,7 @@ function [ ret ] = ext_finger( img, display_flag )
         end
         %subplot(1,2,1), subimage(img), title('Original image')
         if display_flag==1
-            imshow(combined);title('Minutiae');
+            imshow(combined);
         end;
     end
     ret=minutiae;

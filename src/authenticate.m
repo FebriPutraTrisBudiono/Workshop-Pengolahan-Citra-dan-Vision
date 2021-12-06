@@ -22,7 +22,7 @@ function varargout = authenticate(varargin)
 
 % Edit the above text to modify the response to help authenticate
 
-% Last Modified by GUIDE v2.5 08-Apr-2017 21:27:36
+% Last Modified by GUIDE v2.5 02-Dec-2021 00:43:33
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -108,7 +108,7 @@ function b_f_Callback(hObject, eventdata, handles)
     'D:\College\S6\Mini Project\Databases\FVC 2002\DB1');
     Img = imread(fullfile(pathname2, filename2));
     axes(handles.axes2)
-    imshow(Img);title('Input');
+    imshow(Img);
 set(handles.t_f, 'string', [pathname2, filename2]);
 
 % --- Executes on button press in b_authenticate.
@@ -122,18 +122,17 @@ function b_authenticate_Callback(hObject, eventdata, handles)
 fprintf(['>> Melakukan Proses Filtering\n']);
 % menampilkan tulisan dibawah ini ketika authentication  di klik
 set(hObject, 'string', 'Proses Filtering...');
-% Mengambil citra asli untuk di minutiae
     path = get(handles.t_f, 'string');
     img = imread(path);
     axes(handles.axes3)
     Enhancement(img, 1);
     
-set(hObject, 'string', 'Reserve_Object...');
-% Mengambil citra asli untuk di minutiae
+set(hObject, 'string', 'Thinning...');
+% Mengambil citra Threshold untuk di Thinning
     path = get(handles.t_f, 'string');
     img = imread(path);
     axes(handles.axes4)
-    reserve_color_object(img, 1);
+    thinning(img, 1);
 
 % Melakukan ekstraksi minutiae pada sample
 % memunculkan kalimat dibawah ini pada command window
@@ -153,15 +152,15 @@ drawnow();
 % proses sistem cerdas
 load database person minutiae
 
-uniq = unique(minutiae(:, 1));
-r = size(uniq(:, :));
-k = size(minutiae(:, :));
-uniq = table2struct(uniq);
-uniq = struct2cell(uniq);
+uniq = unique(minutiae(:, 1)); %memanggil matriks pada kolom pertama
+r = size(uniq(:, :)); %memanggil semua baris dan kolom pada matriks
+k = size(minutiae(:, :)); %memanggil semua baris dan kolom pada matriks
+uniq = table2struct(uniq); %memanggil nama kolom pada variable uniq
+uniq = struct2cell(uniq); %??????
 
-first = minutiae(:, 1);
-first = table2struct(first);
-first = struct2cell(first);
+first = minutiae(:, 1); %??????
+first = table2struct(first); %??????
+first = struct2cell(first); %??????
 s = 0;
 
 for i=1:r
@@ -219,3 +218,12 @@ function axes1_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: place code in OpeningFcn to populate axes1
+
+
+% --------------------------------------------------------------------
+function Untitled_1_Callback(hObject, eventdata, handles)
+% hObject    handle to Untitled_1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+close()
+enrol

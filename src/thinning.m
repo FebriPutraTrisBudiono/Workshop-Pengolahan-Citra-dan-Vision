@@ -1,4 +1,4 @@
-function [ ret ] = reserve_color_object(img, display_flag)
+function [ ret ] = thinning(img, display_flag)
 if nargin==1; display_flag=0; end
     if ndims(img) == 3; end
     block_size_c = 24; YA=0; YB=0; XA=0; XB=0;
@@ -38,7 +38,7 @@ if nargin==1; display_flag=0; end
     end
     [ binim, mask, cimg, cimg2, orient_img, orient_img_m ] = f_enhance(img);
     if display_flag==1
-        imshow(binim);title('Filtered and Binarized Image');
+        imshow(binim);
     end;
     % Making Mask -------------------------------------------------------------
     if display_flag==1; fprintf('selesai!\n>> making mask... '); end
@@ -500,7 +500,7 @@ if nargin==1; display_flag=0; end
         end
         %subplot(1,2,1), subimage(img), title('Original image')
         if display_flag==1
-            imshow(combined);title('Reserve Color');
+            imshow(combined);title('Thinning');
         end;
     end
     ret=minutiae;
