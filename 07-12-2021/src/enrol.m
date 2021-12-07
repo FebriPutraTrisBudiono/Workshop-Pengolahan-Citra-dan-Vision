@@ -233,6 +233,9 @@ function b_f1_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 [filename1, pathname1] = ...
     uigetfile('*.tif','Pilih sidik jari pertama');
+    Img = imread(fullfile(pathname1, filename1));
+    axes(handles.axes1)
+    imshow(Img);
 set(handles.t_f1, 'string', [pathname1 filename1]);
 
 
@@ -266,6 +269,9 @@ function b_f2_Callback(hObject, eventdata, handles)
 
 [filename2, pathname2] = ...
     uigetfile('*.tif','Pilih sidik jari kedua');
+    Img = imread(fullfile(pathname2, filename2));
+    axes(handles.axes2)
+    imshow(Img);
 set(handles.t_f2, 'string', [pathname2 filename2]);
 
 

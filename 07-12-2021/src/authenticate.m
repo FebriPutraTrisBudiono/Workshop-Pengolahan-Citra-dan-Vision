@@ -152,22 +152,22 @@ drawnow();
 % proses sistem cerdas
 load database person minutiae
 
-uniq = unique(minutiae(:, 1)); %memanggil matriks pada kolom pertama
+uniq = unique(minutiae(:, 1)); %memanggil value (jika angka sama cukup dipanggil satu kali) pada matriks kolom pertama
 r = size(uniq(:, :)); %memanggil semua baris dan kolom pada matriks
 k = size(minutiae(:, :)); %memanggil semua baris dan kolom pada matriks
 uniq = table2struct(uniq); %memanggil nama kolom pada variable uniq
 uniq = struct2cell(uniq); %??????
 
-first = minutiae(:, 1); %??????
-first = table2struct(first); %??????
-first = struct2cell(first); %??????
+first = minutiae(:, 1); %memanggil matriks pada kolom pertama
+first = table2struct(first); %memanggil nama kolom pada variable first
+first = struct2cell(first); 
 s = 0;
 
 for i=1:r
-    temp_struct = struct('X', [], 'Y', [], 'Type', [], 'Angle', [],'S1', [], 'S2', []);
+    temp_struct = struct('X', [], 'Y', [], 'Type', [], 'Angle', [],'S1', [], 'S2', []); %struct berfungsi membuat baris dengan berisikan himpunan kosong []
     for j=1:k
         % build temporary structure of minutiae pertaining to a fingerprint
-        if strcmp(uniq(i), first(j))
+        if strcmp(uniq(i), first(j)) %strcmp berfungsi untuk membandingkan antara value dari variable uniq dan first, jika sama maka nilai 1 jika tidak sama maka nilai 0
             p = size(temp_struct);
             if p==0
                 temp_struct = table2struct(minutiae(j, 2:7));
