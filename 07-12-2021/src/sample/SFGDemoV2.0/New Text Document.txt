@@ -1,5 +1,0 @@
-101 = febri
-102 = firdis
-103 = icha
-104 = adib
-105 = rosyid
