@@ -138,17 +138,18 @@ drawnow();
 fprintf(['>> Memasukkan Nilai ke Database... ']);
 load database person minutiae
 
-ind = regexp(path1, '[0-9][0-1][0-8]_[0-8]');
+%proses menyimpan data person
+ind = regexp(path1, '[0-9][0-1][0-9]_[0-9]');
 id1 = path1(ind:ind+4);
-ind = regexp(path2, '[0-9][0-1][0-8]_[0-8]');
+ind = regexp(path2, '[0-9][0-1][0-9]_[0-9]');
 id2 = path2(ind:ind+4);
 
 rec1 = struct('Name', name, 'Age', age, 'FID1', id1, 'FID2', id2);
 
-[r] = size(person);
+i = size(person);
 temp_struct = table2struct(person);
 
-if r == 0
+if i == 0
     temp_struct = rec1;
 else
     temp_struct = [temp_struct; rec1];
@@ -161,31 +162,32 @@ save database person minutiae
 set(hObject, 'String', 'Ekstraksi minutiae pada sidikjari pertama...');
 drawnow();
 
-if path1~=0
-    minu1 = ext_finger(imread(path1));
-    minu1 = num2cell(minu1);
-    minu1 = struct('ID', id1, 'X', minu1(:, 1), 'Y', minu1(:, 2),...
-                   'Type', minu1(:, 3), 'Angle', minu1(:, 4), ...
-                   'S1', minu1(:, 5), 'S2', minu1(:, 6));
-end;
+%proses menyimpan data minutiae
+
+minu1_1 = ext_finger(imread(path1));
+minu1_2 = num2cell(minu1_1);
+minu1_3 = struct('ID', id1, 'X', minu1_2(:, 1), 'Y', minu1_2(:, 2),...
+          'Type', minu1_2(:, 3), 'Angle', minu1_2(:, 4), ...
+          'S1', minu1_2(:, 5), 'S2', minu1_2(:, 6));
+
 
 set(hObject, 'String', 'Ekstraksi minutiae pada sidikjari kedua...');
 drawnow();
-if path2~=0
-    minu2 = ext_finger(imread(path2));
-    minu2 = num2cell(minu2);
-    minu2 = struct('ID', id2, 'X', minu2(:, 1), 'Y', minu2(:, 2),...
-                   'Type', minu2(:, 3), 'Angle', minu2(:, 4), ...
-                   'S1', minu2(:, 5), 'S2', minu2(:, 6));
-end;
 
-[r] = size(minutiae);
+minu2_1 = ext_finger(imread(path2));
+minu2_2 = num2cell(minu2_1);
+minu2_3 = struct('ID', id2, 'X', minu2_2(:, 1), 'Y', minu2_2(:, 2),...
+          'Type', minu2_2(:, 3), 'Angle', minu2_2(:, 4), ...
+          'S1', minu2_2(:, 5), 'S2', minu2_2(:, 6));
+
+
+j = size(minutiae);
 temp_struct = table2struct(minutiae);
 
-if r == 0
-    temp_struct = [minu1; minu2];
+if j == 0
+    temp_struct = [minu1_3; minu2_3];
 else
-    temp_struct = [temp_struct; minu1; minu2];
+    temp_struct = [temp_struct; minu1_3; minu2_3];
 end;
 
 minutiae = struct2table(temp_struct);
@@ -232,7 +234,7 @@ function b_f1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 [filename1, pathname1] = ...
-    uigetfile('*.tif','Pilih sidik jari pertama');
+    uigetfile('*.bmp','Pilih sidik jari pertama');
     Img = imread(fullfile(pathname1, filename1));
     axes(handles.axes1)
     imshow(Img);
@@ -268,7 +270,7 @@ function b_f2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 [filename2, pathname2] = ...
-    uigetfile('*.tif','Pilih sidik jari kedua');
+    uigetfile('*.bmp','Pilih sidik jari kedua');
     Img = imread(fullfile(pathname2, filename2));
     axes(handles.axes2)
     imshow(Img);

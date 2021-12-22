@@ -23,7 +23,6 @@ function [ ret ] = ext_finger( img, display_flag )
     block_size_c = 24; YA=0; YB=0; XA=0; XB=0;
 % Enhancement -------------------------------------------------------------
     if display_flag==1; fprintf('>> enhancing... '); end
-    yt=1; xl=1; yb=size(img,2); xr=size(img,1); 
     
     % find the number of pixels in rows 1-55 with values less that 8
     % if they are less than 8, then we make them 255. This is done to
@@ -32,33 +31,29 @@ function [ ret ] = ext_finger( img, display_flag )
     for x=1:55
         if numel(find(img(x,:)<200)) < 8
            img(1:x,:) = 255;
-           yt=x;
         end
     end
     for x=225:size(img,1)
         if numel(find(img(x,:)<200)) < 3
            img(x-17:size(img,1),:) = 255;
-           yb=x;
            break
         end
     end
     for y=200:size(img,2)
         if numel(find(img(:,y)<200)) < 1
            img(:,y:size(img,2)) = 255;
-           xr=y;
            break
         end
     end
     for y=1:75
         if numel(find(img(:,y)<200)) < 1
            img(:,1:y) = 255;
-           xl=y;
         end	
     end
-    [ binim, mask, cimg, cimg2, orient_img, orient_img_m ] = f_enhance(img);
+    [ binim, mask, cimg, ~, orient_img, orient_img_m ] = f_enhance(img);
     if display_flag==1
         imshow(binim);title('Filtered and Binarized Image');
-    end;
+    end
 % Making Mask -------------------------------------------------------------
     if display_flag==1; fprintf('selesai!\n>> making mask... '); end
      mask_t=mask;
