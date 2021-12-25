@@ -4,9 +4,9 @@ if nargin==1; display_flag=0; end
 % Enhancement -------------------------------------------------------------
     if display_flag==1; fprintf('>> enhancing... '); end
 
-    [ binim, ~, ~, ~, ~, orient_img_m ] = f_enhance(img);
+    [ binim, ~, ~, ~, ~, ~ ] = f_enhance(img);
     if display_flag==1
-        imshow(binim);title('Filtered and Binarized Image');
-    end
+        imshow(binim);title('Binarisasi');
+    end;
 end
 
