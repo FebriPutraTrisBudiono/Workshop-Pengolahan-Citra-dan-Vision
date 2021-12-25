@@ -193,9 +193,7 @@ for i=1:r
                                 %Euclidean Distance
                                 d=sqrt((M2(j,1)-M1(i,1))^2+(M2(j,2)-M1(i,2))^2);
                                 if d<T
-                                    DTheta=abs(M1(i,3)-M2(j,3))*180/pi;
-                                    DTheta=min(DTheta,360-DTheta);
-                                    if DTheta<TT
+                                    if (M1(i,3))==(M2(j,3))
                                         n=n+1;        %Increase Score
                                         Found=1;
                                     end
@@ -224,9 +222,7 @@ for i=1:r
                                 %Euclidean Distance
                                 d=sqrt((M4(j,1)-M3(i,1))^2+(M4(j,2)-M3(i,2))^2);
                                 if d<T
-                                    DTheta=abs(M3(i,3)-M4(j,3))*180/pi;
-                                    DTheta=min(DTheta,360-DTheta);
-                                    if DTheta<TT
+                                    if (M3(i,3))==(M4(j,3))
                                         n=n+1;        %Increase Score
                                         Found=1;
                                     end
