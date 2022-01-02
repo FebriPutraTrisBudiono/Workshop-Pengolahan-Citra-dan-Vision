@@ -139,9 +139,9 @@ fprintf(['>> Memasukkan Nilai ke Database... ']);
 load database person minutiae
 
 %proses menyimpan data person
-ind = regexp(path1, '[0-9][0-1][0-9]_[0-9]');
+ind = regexp(path1, '[0-9][0-9][0-9]_[0-9]');
 id1 = path1(ind:ind+4);
-ind = regexp(path2, '[0-9][0-1][0-9]_[0-9]');
+ind = regexp(path2, '[0-9][0-9][0-9]_[0-9]');
 id2 = path2(ind:ind+4);
 
 rec1 = struct('Name', name, 'Age', age, 'FID1', id1, 'FID2', id2);

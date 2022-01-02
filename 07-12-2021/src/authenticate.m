@@ -156,7 +156,7 @@ uniq_1 = unique(minutiae(:, 1)); %memanggil value (jika angka sama cukup dipangg
 r = size(uniq_1(:, :)); %memanggil semua baris dan kolom pada matriks
 k = size(minutiae(:, :)); %memanggil semua baris dan kolom pada matriks
 uniq_2 = table2struct(uniq_1); %memanggil nama kolom pada variable uniq
-uniq_3 = struct2cell(uniq_2); %??????
+uniq_3 = struct2cell(uniq_2);
 
 first_1 = minutiae(:, 1); %memanggil matriks pada kolom pertama
 first_2 = table2struct(first_1); %memanggil nama kolom pada variable first
@@ -181,62 +181,48 @@ for i=1:r
     temp_struct_2 = transpose(cell2mat(struct2cell(temp_struct_1)));
     if s==0 
         M1=inp_minutiae(inp_minutiae(:,3)<5,:);
-        M2=temp_struct_2(temp_struct_2(:,3)<5,:);   
-        S=0;            % Best Similarity Score
+        M2=temp_struct_2(temp_struct_2(:,3)<5,:);  
                         
                         Count1=size(M1,1); Count2=size(M2,1); n=0;
-                        T=15;
-                        TT=1;
+                        K=15; %sumber dari jurnal
                         for i=1:Count1
-                            Found=0; j=1;
-                            while (Found==0) && (j<=Count2)
+                            for j=1:Count2
                                 %Euclidean Distance
                                 d=sqrt((M2(j,1)-M1(i,1))^2+(M2(j,2)-M1(i,2))^2);
-                                if d<T
-                                    if (M1(i,3))==(M2(j,3))
-                                        n=n+1;        %Increase Score
-                                        Found=1;
+                                if d<K
+                                    if n<Count1
+                                        if (M1(i,3))==(M2(j,3))
+                                            n=n+1;        %Increase Score
+                                        end
                                     end
                                 end
-                                j=j+1;
                             end
                         end
-                        sm_1=sqrt(n^2/(Count1*Count2));       %Similarity Index
+                        sm=sqrt(n^2/(Count1*Count2));       %Similarity Index
                             
-                        sm_2=sm_1;
-                        if S<sm_2
-                            S=sm_2;
-                        end    
-        s = S;
+        s = sm;
     else
         M3=inp_minutiae(inp_minutiae(:,3)<5,:);
         M4=temp_struct_2(temp_struct_2(:,3)<5,:);  
-        D=0;            % Best Similarity Score
         
                         Count1=size(M3,1); Count2=size(M4,1); n=0;
-                        T=15;
-                        TT=1;
+                        K=15;
                         for i=1:Count1
-                            Found=0; j=1;
-                            while (Found==0) && (j<=Count2)
+                            for j=1:Count2
                                 %Euclidean Distance
                                 d=sqrt((M4(j,1)-M3(i,1))^2+(M4(j,2)-M3(i,2))^2);
-                                if d<T
-                                    if (M3(i,3))==(M4(j,3))
-                                        n=n+1;        %Increase Score
-                                        Found=1;
+                                if d<K
+                                    if n<Count1
+                                        if (M3(i,3))==(M4(j,3))
+                                            n=n+1;        %Increase Score
+                                        end
                                     end
                                 end
-                                j=j+1;
                             end
                         end
                         sm=sqrt(n^2/(Count1*Count2));       %Similarity Index
                         
-                        if D<sm
-                            D=sm;
-                        end    
-                        
-        s = horzcat(s, D);
+        s = horzcat(s, sm);
     end;    
 end;
 
