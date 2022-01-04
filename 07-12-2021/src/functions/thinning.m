@@ -43,41 +43,7 @@ if nargin==1; display_flag=0; end
     % Making Mask -------------------------------------------------------------
     if display_flag==1; fprintf('selesai!\n>> making mask... '); end
      mask_t=mask;
-%     for y=19:size(mask,1)-block_size_c*2
-%         for x=block_size_c:size(mask,2)-block_size_c*2
-%           n_mask = 0;
-%           % loop for checking if mask value is equal to 0 by traversing
-%           % through the edges of block of size 24x24
-%           for yy=-1:1
-%               for xx=-1:1
-%                   y_t = y + yy *block_size_c; 
-%                   x_t = x + xx *block_size_c; 
-%                   if y_t > 0 && x_t > 0 && (y_t ~= y || x_t ~= x) && mask(y_t,x_t) == 0
-%                      n_mask = n_mask + 1;
-%                   end
-%               end
-%           end 
-%           if n_mask == 0
-%              continue 
-%           end
-%           if mask(y,x) == 0 || y > size(mask,1) - 20  ||  y < yt || y > yb || x < xl || x > xr
-%                cimg2(ceil(y/(block_size_c)), ceil(x/(block_size_c))) = 255; %sets coherence image to 255 if abov condition is satisfied
-%                mask_t(y,x) = 0;
-%                continue;
-%           end
-%           % 2 lines (length 19) scanned
-%           for i = y:y+1
-%             for j = x-9:x+9
-%               if i > 0 && j > 0 && i < size(mask,1) && j < size(mask,2) && mask(i,j) > 0
-%               else
-%                  cimg2(ceil(y/(block_size_c)), ceil(x/(block_size_c))) = 255;
-%                  mask_t(y,x)=0;
-%                  break
-%               end
-%             end
-%           end
-%         end
-%     end
+     
     mask=mask_t;
     inv_binim = (binim == 0);
     thinned =  bwmorph(inv_binim, 'thin',Inf);

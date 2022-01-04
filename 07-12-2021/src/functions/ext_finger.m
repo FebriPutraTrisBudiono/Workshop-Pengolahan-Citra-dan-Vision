@@ -487,49 +487,15 @@ function [ ret ] = ext_finger( img, display_flag )
         for i=1:minu_count 
         x1 = minutiae(i, 1); y1 = minutiae(i, 2);
         if minutiae(i, 3) == 1                      %Termination
-           if minutiae(i, 4) > pi
             for k = y1-2: y1 + 2
               for l = x1-2: x1 + 2
                 minutiae_img(k, l,:) = [255, 0, 0]; 
               end
             end
-           else
-            for k = y1-2: y1 + 2
-             for l = x1-2: x1 + 2
-           %     minutiae_img(k, l,:) = [205, 100, 100]; 
-              end
-            end
-           end
-        elseif minutiae(i, 3) == 2
-            for k = y1-2: y1 + 2
-              for l = x1-2: x1 + 2
-            %    minutiae_img(k, l,:) = [255, 0, 255];
-              end
-            end
         elseif minutiae(i, 3) == 3                  %Bifurcation
-          if minutiae(i, 4) > pi
             for k = y1-2: y1 + 2
               for l = x1-2: x1 + 2
                 minutiae_img(k, l,:) = [0, 0, 255]; 
-              end
-            end
-          else 
-            for k = y1-2: y1 + 2
-              for l = x1-2: x1 + 2
-          %      minutiae_img(k, l,:) = [255, 0, 255];
-              end
-            end
-          end
-        elseif minutiae(i, 3) == 5
-            for k = y1-4: y1 + 4
-              for l = x1-4: x1 + 4
-         %       minutiae_img(k, l,:) = [0, 255, 0]; 
-              end
-            end
-        elseif minutiae(i, 3) > 5
-            for k = y1-2: y1 + 2
-              for l = x1-2: x1 + 2
-         %       minutiae_img(k, l,:) = [128, 128, 0]; % gold for delta
               end
             end
         end   

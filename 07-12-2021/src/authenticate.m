@@ -119,20 +119,22 @@ function b_authenticate_Callback(hObject, eventdata, handles)
 
 % Melakukan enchancement pada sample
 % memunculkan kalimat dibawah ini pada command window
-fprintf(['>> Melakukan Proses Filtering\n']);
+fprintf(['>> Melakukan Proses Thresholding\n']);
 % menampilkan tulisan dibawah ini ketika authentication  di klik
-set(hObject, 'string', 'Proses Filtering...');
+set(hObject, 'string', 'Proses Thresholding...');
     path = get(handles.t_f, 'string');
     img = imread(path);
     axes(handles.axes3)
-    Enhancement(img, 1);
+    biner = Enhancement(img);
+    imshow(biner); title('Tresholding');
     
 set(hObject, 'string', 'Thinning...');
 % Mengambil citra Threshold untuk di Thinning
-    path = get(handles.t_f, 'string');
-    img = imread(path);
+    thin_image=bwmorph(biner,'thin',Inf);
     axes(handles.axes4)
-    thinning(img, 1);
+    imshow(thin_image); title('Thinning');
+    
+    axes(handles.axes4)
 
 % Melakukan ekstraksi minutiae pada sample
 % memunculkan kalimat dibawah ini pada command window
