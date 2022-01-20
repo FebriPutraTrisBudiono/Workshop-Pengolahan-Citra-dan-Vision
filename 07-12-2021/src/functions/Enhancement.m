@@ -1,7 +1,7 @@
 function [ biner ] = Enhancement(img)
 
     [x, y] = size(img);
-    threshold=125;
+    threshold=150;
     biner=zeros(x,y);
     
     for i=1:x
@@ -16,4 +16,3 @@ function [ biner ] = Enhancement(img)
     
     biner = imcomplement(biner);
 end
-

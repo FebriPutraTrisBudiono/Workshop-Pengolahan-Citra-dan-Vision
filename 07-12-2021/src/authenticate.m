@@ -119,6 +119,7 @@ function b_authenticate_Callback(hObject, eventdata, handles)
 
 % Melakukan enchancement pada sample
 % memunculkan kalimat dibawah ini pada command window
+delete data_testing.mat
 fprintf(['>> Melakukan Proses Thresholding\n']);
 % menampilkan tulisan dibawah ini ketika authentication  di klik
 set(hObject, 'string', 'Proses Thresholding...');
@@ -130,11 +131,10 @@ set(hObject, 'string', 'Proses Thresholding...');
     
 set(hObject, 'string', 'Thinning...');
 % Mengambil citra Threshold untuk di Thinning
-    thin_image=bwmorph(biner,'thin',Inf);
+    %thin_image=bwmorph(biner,'thin',inf);
+    thinning = thining(biner);
     axes(handles.axes4)
-    imshow(thin_image); title('Thinning');
-    
-    axes(handles.axes4)
+    imshow(thinning); title('Thinning');
 
 % Melakukan ekstraksi minutiae pada sample
 % memunculkan kalimat dibawah ini pada command window
@@ -144,6 +144,11 @@ set(hObject, 'string', 'Ekstraksi minutiae...');
 drawnow();
 axes(handles.axes1)
 inp_minutiae = ext_finger(img, 1);
+
+save data_testing.mat inp_minutiae
+M1_1=inp_minutiae(inp_minutiae(:,3)<5,:);
+M1_2=M1_1(:,1:3);
+set(handles.uitable5, 'data', M1_2);
 
 % memunculkan kalimat dibawah ini pada command window
 fprintf(['>> Membandingkan dengan database... ']);
@@ -166,15 +171,15 @@ first_3 = struct2cell(first_2);
 s = 0;
 
 for i=1:r
-    temp_struct_1 = struct('X', [], 'Y', [], 'Type', [], 'Angle', [],'S1', [], 'S2', []); %struct berfungsi membuat baris dengan berisikan himpunan kosong []
+    temp_struct_1 = struct('X', [], 'Y', [], 'Type', []); %struct berfungsi membuat baris dengan berisikan himpunan kosong []
     for j=1:k
         % build temporary structure of minutiae pertaining to a fingerprint
         if strcmp(uniq_3(i), first_3(j)) %strcmp berfungsi untuk membandingkan antara value dari variable uniq dan first, jika sama maka nilai 1 jika tidak sama maka nilai 0
             p = size(temp_struct_1);
             if p==0
-                temp_struct_1 = table2struct(minutiae(j, 2:7));
+                temp_struct_1 = table2struct(minutiae(j, 2:4));
             else
-                temp_struct_1 = [temp_struct_1; table2struct(minutiae(j, 2:7))];
+                temp_struct_1 = [temp_struct_1; table2struct(minutiae(j, 2:4))];
             end;
         end;
     end;
@@ -231,16 +236,11 @@ end;
 % s berisi hasil-hasil dari tingkat kecocokan dari data training dgn data testing
 maxim = max(s); %mengambil data s yang terbesar
 len = length(s); %menghitung total jumlah data yang ada
-set(handles.listbox2, 'string', [s]);
 for i=1:len
     if s(i)==maxim
         break;
     end;
 end;
-set(handles.text15, 'string', [maxim]);
-
-person2 = char(struct2cell(table2struct(person(:, 1))));
-set(handles.listbox1, 'string', (person2));
 
 if (maxim<0.4) 
     fprintf(['>> Sidik Jari tidak Dikenali.\n']);

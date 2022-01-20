@@ -133,7 +133,6 @@ path2 = get(handles.t_f2, 'string');
 set(hObject, 'String', 'Enrolling... ');
 drawnow();
 
-
 % inserting the values into database
 fprintf(['>> Memasukkan Nilai ke Database... ']);
 load database person minutiae
@@ -159,27 +158,21 @@ person = struct2table(temp_struct);
 
 save database person minutiae
 
+%proses menyimpan data minutiae
+
 set(hObject, 'String', 'Ekstraksi minutiae pada sidikjari pertama...');
 drawnow();
 
-%proses menyimpan data minutiae
-
 minu1_1 = ext_finger(imread(path1));
 minu1_2 = num2cell(minu1_1);
-minu1_3 = struct('ID', id1, 'X', minu1_2(:, 1), 'Y', minu1_2(:, 2),...
-          'Type', minu1_2(:, 3), 'Angle', minu1_2(:, 4), ...
-          'S1', minu1_2(:, 5), 'S2', minu1_2(:, 6));
-
+minu1_3 = struct('ID', id1, 'X', minu1_2(:, 1), 'Y', minu1_2(:, 2), 'Type', minu1_2(:, 3));
 
 set(hObject, 'String', 'Ekstraksi minutiae pada sidikjari kedua...');
 drawnow();
 
 minu2_1 = ext_finger(imread(path2));
 minu2_2 = num2cell(minu2_1);
-minu2_3 = struct('ID', id2, 'X', minu2_2(:, 1), 'Y', minu2_2(:, 2),...
-          'Type', minu2_2(:, 3), 'Angle', minu2_2(:, 4), ...
-          'S1', minu2_2(:, 5), 'S2', minu2_2(:, 6));
-
+minu2_3 = struct('ID', id2, 'X', minu2_2(:, 1), 'Y', minu2_2(:, 2), 'Type', minu2_2(:, 3));
 
 j = size(minutiae);
 temp_struct = table2struct(minutiae);
